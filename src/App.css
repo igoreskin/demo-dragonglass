@@ -21,6 +21,7 @@
   width: 70%;
   height: 100px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   padding-left: 20px;
 }
@@ -40,16 +41,164 @@
   font-family: "SFProDisplay-Black", Helvetica, Arial, serif;
 }
 
+.spacer {
+  width: 65%
+}
+
 .round-image {
   border: 2px solid #718DAA;
   border-radius: 50%;
   height: 50px;
-  float: right;
+  
 }
 
-/* * {
-  font-family: "Montserrat", sans-serif;
-} */
+.bidder {
+  font-size: 110%;
+  font-weight: 500;
+  color: white;
+  margin-left: 10px;
+}
+
+.arrow-down {
+  width: 13px;
+  margin-left: 10px;
+  position: relative;
+  top: 3px;
+}
+
+.bid-panel {
+  width: 50%;
+  height: 300px;
+  margin-top: 90px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 8px;
+  box-shadow: 10px 10px 5px #E6E6E6;
+  display: flex;
+  align-items: center;
+}
+
+.headphones {
+  width: 230px;
+  margin-left: 20px;
+}
+
+.bid-info {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin-left: 50px;
+  margin-top: 45px;
+}
+
+.bose {
+  font-family: "SFProText-Bold", Helvetica, Arial, serif;
+  color: rgba(102, 102, 102, 1.0);
+  font-size: 18.0px;
+}
+
+.bid-text {
+  margin-top: 50px;
+}
+
+.current-bid {
+  font-family: "SFProText-Bold", Helvetica, Arial, serif;
+  color: rgba(102, 102, 102, 1.0);
+  font-size: 26.0px;
+}
+
+.bid-price {
+  font-size: 26.0px;
+  color: rgba(121, 178, 55, 1.0);
+  font-family: "SFProText-Bold", Helvetica, Arial, serif;
+  margin-left: 10px;
+}
+
+.usd {
+  margin-left: 10px;
+  font-family: "SFProText-Medium", Helvetica, Arial, serif;
+  font-size: 16.0px;
+  color: rgba(155, 154, 155, 1.0);
+}
+
+.input-row {
+  margin-top: 20px;
+}
+
+.bid-input {
+  height: 46px;
+  width: 266px;
+  background-color: rgba(244, 244, 244, 1.0);
+  border-radius: 6px;
+  border: none;
+  padding-left: 15px;
+}
+
+.bid-button {
+  background-color: rgba(121, 178, 55, 1.0);
+  height: 46px;
+  width: 121px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  font-size: 120%;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.bid-button:hover {
+  background-color: green;
+  transition: all 0.2s ease-in-out;
+}
+
+::placeholder {
+  font-family: "SFProText-MediumItalic", Helvetica, Arial, serif;
+  font-size: 14.0px;
+  color: rgba(102, 102, 102, 1.0);
+  opacity: 0.7;
+}
+
+.bid-input:focus,
+.bid-button:focus {
+  outline: 0;
+}
+
+.table-panel {
+  width: 50%;
+  height: 500px;
+  margin: 90px 0;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 8px;
+  box-shadow: 10px 10px 5px #E6E6E6;
+  display: flex;
+  flex-direction: column;
+}
+
+.bidding-history {
+  font-family: "SFProText-Bold", Helvetica, Arial, serif;
+  font-size: 18.0px;
+  color: rgba(102, 102, 102, 1.0);
+  margin: 35px 0 0 40px;
+}
+
+.table {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 30px;
+}
+
+.account {
+  font-family         : "InterUI-Regular", Helvetica, Arial, serif;
+  font-size           : 12.0px;
+  color               : rgba(0, 107, 180, 1.0);
+}
+
+.price {
+  font-family         : "InterUI-Regular", Helvetica, Arial, serif;
+  font-size           : 12.0px;
+  color               : rgba(52, 55, 65, 1.0);
+}
 
 .ui.list .list > .item .header,
 .ui.list > .item .header,
