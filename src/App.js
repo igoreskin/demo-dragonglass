@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import './css/desktopHd.css'
+import Routes from './Routes';
 
 function App() {
   return (
-    <div className="App">
-    
+    <div className="app">
+      <Routes />
     </div>
   );
 }
