@@ -13,18 +13,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 50px;
+  padding-top: 30px;
 }
+
+/* HEADER */
 
 .header {
   background-color: #714C91;
-  width: 70%;
+  width: 80%;
   height: 100px;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
+  box-shadow: 9px 8px 5px #E6E6E6;
 }
 
 .span1 {
@@ -67,10 +70,12 @@
   top: 3px;
 }
 
+/* BID PANEL */
+
 .bid-panel {
-  width: 50%;
-  height: 300px;
-  margin-top: 90px;
+  width: 80%;
+  height: 180px;
+  margin-top: 20px;
   background-color: white;
   border: 1px solid white;
   border-radius: 8px;
@@ -80,8 +85,9 @@
 }
 
 .headphones {
-  width: 230px;
-  margin-left: 20px;
+  width: 130px;
+  margin-left: 15%;
+  margin-top: -20px;
 }
 
 .bid-info {
@@ -89,27 +95,27 @@
   flex-direction: column;
   align-self: flex-start;
   margin-left: 50px;
-  margin-top: 45px;
+  margin-top: 30px;
 }
 
 .bose {
   font-family: "SFProText-Bold", Helvetica, Arial, serif;
   color: rgba(102, 102, 102, 1.0);
-  font-size: 18.0px;
+  font-size: 16.0px;
 }
 
 .bid-text {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .current-bid {
   font-family: "SFProText-Bold", Helvetica, Arial, serif;
   color: rgba(102, 102, 102, 1.0);
-  font-size: 26.0px;
+  font-size: 20.0px;
 }
 
 .bid-price {
-  font-size: 26.0px;
+  font-size: 20.0px;
   color: rgba(121, 178, 55, 1.0);
   font-family: "SFProText-Bold", Helvetica, Arial, serif;
   margin-left: 10px;
@@ -118,17 +124,17 @@
 .usd {
   margin-left: 10px;
   font-family: "SFProText-Medium", Helvetica, Arial, serif;
-  font-size: 16.0px;
+  font-size: 14.0px;
   color: rgba(155, 154, 155, 1.0);
 }
 
 .input-row {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .bid-input {
-  height: 46px;
-  width: 266px;
+  height: 35px;
+  width: 180px;
   background-color: rgba(244, 244, 244, 1.0);
   border-radius: 6px;
   border: none;
@@ -137,12 +143,13 @@
 
 .bid-button {
   background-color: rgba(121, 178, 55, 1.0);
-  height: 46px;
-  width: 121px;
+  height: 33px;
+  width: 110px;
   border-radius: 4px;
   border: none;
   color: white;
-  font-size: 120%;
+  font-size: 110%;
+  font-weight: bold;
   margin-left: 15px;
   cursor: pointer;
 }
@@ -164,10 +171,12 @@
   outline: 0;
 }
 
+/* TABLE */
+
 .table-panel {
-  width: 50%;
-  height: 500px;
-  margin: 90px 0;
+  width: 80%;
+  height: 400px;
+  margin: 20px 0 90px 0;
   background-color: white;
   border: 1px solid white;
   border-radius: 8px;
@@ -199,6 +208,11 @@
   font-family         : "InterUI-Regular", Helvetica, Arial, serif;
   font-size           : 12.0px;
   color               : rgba(52, 55, 65, 1.0);
+}
+
+.bid-paginator {
+  display: flex;
+  color: rgba(102, 102, 102, 1.0);
 }
 
 .ui.list .list > .item .header,

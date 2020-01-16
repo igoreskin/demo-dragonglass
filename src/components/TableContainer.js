@@ -1,7 +1,47 @@
-import React from 'react';
-import { Table, Button } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Table } from 'semantic-ui-react';
+import { BidPaginator } from './BidPaginator';
 
-const TableContainer = () => {
+const TableContainer = ({bids}) => {
+
+    const [page, setPage] = useState({
+		totalRows: bids.length,
+		rowsPerPage: 5,
+		firstRow: 0
+    });
+
+	const nextPage = () => {
+		setPage({ ...page, firstRow: parseInt(page.firstRow) + parseInt(page.rowsPerPage)});
+    };
+    
+	const prevPage = () => {
+        if (parseInt(page.firstRow) - parseInt(page.rowsPerPage) < 0) {
+            setPage({ ...page, firstRow: 0});
+        } else {
+            setPage({ ...page, firstRow: parseInt(page.firstRow) - parseInt(page.rowsPerPage)});
+        }
+    };
+    
+	const toBeginning = () => {
+		setPage({ ...page, firstRow: 0 })
+    };
+    
+	const toEnd = () => {
+		setPage({ ...page, firstRow: (page.totalRows - /*page.totalRows % */page.rowsPerPage) })
+    };
+    
+    let bidsToDisplay = bids.slice(parseInt(page.firstRow), (parseInt(page.firstRow) + parseInt(page.rowsPerPage)))
+
+    const rowsToDisplay = bidsToDisplay && bidsToDisplay.map(bid => {
+        return (
+            <Table.Row key={Math.random()}>
+                <Table.Cell className="account">{bid.account}</Table.Cell>
+                <Table.Cell className="price" style={{textAlign: "center"}}>{bid.amount}</Table.Cell>
+                <Table.Cell className="price" style={{textAlign: "right"}}>{bid.time}</Table.Cell>
+            </Table.Row>
+        )
+    });
+
     return (
         <div className="table-panel">
             <div className="bidding-history">Bidding History</div>
@@ -17,23 +57,10 @@ const TableContainer = () => {
                     </Table.Header>
 
                     <Table.Body>
-                    <Table.Row>
-                        <Table.Cell className="account">568721</Table.Cell>
-                        <Table.Cell className="price" style={{textAlign: "center"}}>27.00</Table.Cell>
-                        <Table.Cell className="price" style={{textAlign: "right"}}>22:18:45</Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell className="account">287364</Table.Cell>
-                        <Table.Cell className="price" style={{textAlign: "center"}}>26.59</Table.Cell>
-                        <Table.Cell className="price" style={{textAlign: "right"}}>21:45:22</Table.Cell>
-                    </Table.Row>
-                    {/*<Table.Row>
-                        <Table.Cell>Jill</Table.Cell>
-                        <Table.Cell>Denied</Table.Cell>
-                        <Table.Cell>None</Table.Cell>
-                    </Table.Row> */}
+                        {rowsToDisplay}
                     </Table.Body>
                 </Table>
+                <BidPaginator page={page} nextPage={nextPage} prevPage={prevPage} toBeginning={toBeginning} toEnd={toEnd} />
             </div>
         </div>
     )

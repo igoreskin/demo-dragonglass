@@ -11,12 +11,13 @@ const MainContainer = (props) => {
 
     useEffect(() => { fetchData() }, []);
 
+    useEffect(() => { setBids(props.bids) }, [props.bids])
+
     const fetchData = async () => {
-        const bids = await props.fetchBids();
-        props.bids.length > 0 && setBids(props.bids)
+        await props.fetchBids();
     }
 
-    // bids && console.log("BIDS IN MAIN CONTAINER: ", bids)
+    // console.log("BIDS IN MAIN CONTAINER: ", bids)
 
     const [bids, setBids] = useState([]);
 
@@ -28,8 +29,8 @@ const MainContainer = (props) => {
         <div className="main">
 
             <Header />
-            <BidContainer />
-            <TableContainer />
+            {bids.length > 0 && <BidContainer bids={bids} />}
+            {bids.length > 0 && <TableContainer bids={bids} />}
 
             {/* <Websocket url="ws://websocket.url" onMessage={(e, data) => {handleData(data)}} /> */}
             

@@ -35,5 +35,25 @@ const bids = [
 		account: '123412',
 		amount: '25.00',
 		time: '21:45:22'
+	},
+	{
+		account: '456456',
+		amount: '24.00',
+		time: '21:45:22'
+	},
+	{
+		account: '916723',
+		amount: '22.01',
+		time: '21:45:22'
+	},
+	{
+		account: '123098',
+		amount: '21.00',
+		time: '21:45:22'
+	},
+	{
+		account: '237123',
+		amount: '20.00',
+		time: '21:45:22'
 	}
 ];
