@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const fetchBids = (id) => {
+export const fetchBids = () => {
 	// return axios.get(`/api/dapps/${id}`).then(extract);
 	return Promise.resolve(bids);
 };

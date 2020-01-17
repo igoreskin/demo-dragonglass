@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import { BidPaginator } from './BidPaginator';
+import { getBids } from '../reducers';
 
-const TableContainer = ({bids}) => {
+const TableContainer = ({bids=[]}) => {
 
     const [page, setPage] = useState({
 		totalRows: bids.length,
 		rowsPerPage: 5,
 		firstRow: 0
     });
+
+    useEffect(() => {if (bids && bids.length > 0) setPage({ ...page, totalRows: bids.length})}, [bids])
+
+    console.log("BIDS: ", bids)
+    bids.length > 0 && console.log("PAGE: ", page)
 
 	const nextPage = () => {
 		setPage({ ...page, firstRow: parseInt(page.firstRow) + parseInt(page.rowsPerPage)});
@@ -60,10 +67,14 @@ const TableContainer = ({bids}) => {
                         {rowsToDisplay}
                     </Table.Body>
                 </Table>
-                <BidPaginator page={page} nextPage={nextPage} prevPage={prevPage} toBeginning={toBeginning} toEnd={toEnd} />
+                {bids.length > 0 && <BidPaginator page={page} nextPage={nextPage} prevPage={prevPage} toBeginning={toBeginning} toEnd={toEnd} />}
             </div>
         </div>
     )
 }
 
-export default TableContainer;
+const mapStateToProps = (state) => ({
+    bids: getBids(state)
+});
+
+export default connect(mapStateToProps)(TableContainer);

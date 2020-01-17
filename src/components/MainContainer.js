@@ -6,6 +6,7 @@ import Header from './Header';
 import BidContainer from './BidContainer';
 import TableContainer from './TableContainer';
 import { getBids } from '../reducers';
+import SockJsClient from 'react-stomp';
 
 const MainContainer = (props) => {
 
@@ -29,8 +30,12 @@ const MainContainer = (props) => {
         <div className="main">
 
             <Header />
-            {bids.length > 0 && <BidContainer bids={bids} />}
-            {bids.length > 0 && <TableContainer bids={bids} />}
+            {<BidContainer bids={bids} />}
+            {<TableContainer />}
+
+            <SockJsClient url='http://localhost:8080/ws' topics={['/topics/all']}
+            onMessage={(msg) => { console.log("MESSAGE FROM STOMP: ", msg); }}
+            /*ref={ (client) => { this.clientRef = client }}*/ />
 
             {/* <Websocket url="ws://websocket.url" onMessage={(e, data) => {handleData(data)}} /> */}
             

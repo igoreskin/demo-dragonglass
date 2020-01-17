@@ -28,13 +28,13 @@ export const BidPaginator = ({ page, nextPage, prevPage, toBeginning, toEnd }) =
     }
 
     return (
-        <div className="bid-paginator">
+        <div className="bid-paginator"> 
             <div style={{marginRight: "10px"}}>Showing bids</div>
-            <div><i className="icon angle double left" onClick={farLeft} /></div>
-            <div style={{marginRight: "5px"}}><i className="icon angle left" onClick={nextLeft} /></div>
+            <div style={{cursor: "pointer"}}><i className="icon angle double left" onClick={farLeft} /></div>
+            <div style={{marginRight: "5px", cursor: "pointer"}}><i className="icon angle left" onClick={nextLeft} /></div>
             <div>{page.firstRow + 1} {lastDisplayedRow}</div>
-            <div style={{marginLeft: "5px"}}><i className="icon angle right" onClick={nextRight} /></div>
-            <div><i className="icon angle double right" onClick={farRight} /></div>
+            <div style={{marginLeft: "5px", cursor: "pointer"}}><i className="icon angle right" onClick={nextRight} /></div>
+            <div style={{cursor: "pointer"}}><i className="icon angle double right" onClick={farRight} /></div>
             <div style={{marginLeft: "8px"}}>out of &nbsp;{page.totalRows}</div>
         </div>
     )
