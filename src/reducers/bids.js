@@ -1,6 +1,6 @@
 import { FETCH_BIDS_SUCCESS, FETCH_BIDS_FAILURE } from '../types';
 
-export default function news(state = [], action) {
+export default function bids(state = [], action) {
 	switch (action.type) {
 		case FETCH_BIDS_SUCCESS:
 			return [ ...action.payload ];
