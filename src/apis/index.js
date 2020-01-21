@@ -1,6 +1,6 @@
-import axios from 'axios';
+// import axios from 'axios';
 
-const extract = ({ data }) => data;
+// const extract = ({ data }) => data;
 
 export const fetchBids = () => {
 	// return axios.get(`/api/dapps/${id}`).then(extract);

@@ -4,7 +4,7 @@ export default function transactions(state = [], action) {
 	switch (action.type) {
 		case FETCH_TRANSACTIONS_SUCCESS:
             console.log("PAYLOAD: ", action.payload)
-			return [ ...state, action.payload];
+			return [ ...action.payload];
 		case FETCH_TRANSACTIONS_FAILURE:
             console.log("TRANSACTION FETCH FAILURE")
 			return [];

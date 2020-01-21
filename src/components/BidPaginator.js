@@ -7,7 +7,7 @@ export const BidPaginator = ({ page, nextPage, prevPage, toBeginning, toEnd }) =
     }
 
     const nextLeft = () => {
-        page.firstRow > 0 && prevPage();
+        page.firstRow > 1 && page.totalRows > 2 && prevPage();
     }
 
     const farLeft = () => {
@@ -15,7 +15,7 @@ export const BidPaginator = ({ page, nextPage, prevPage, toBeginning, toEnd }) =
     }
 
     const farRight = () => {
-        toEnd();
+        page.rowsPerPage < page.totalRows && toEnd();
     }
 
     let lastDisplayedRow;

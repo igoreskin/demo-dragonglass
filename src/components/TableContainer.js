@@ -5,7 +5,7 @@ import { BidPaginator } from './BidPaginator';
 import { getBids } from '../reducers';
 import { getTransactions } from '../reducers';
 
-const TableContainer = ({bids=[], transactions=[]}) => {
+const TableContainer = ({ transactions=[], userMap }) => {
 
     const [page, setPage] = useState({
 		totalRows: transactions.length,
@@ -13,12 +13,13 @@ const TableContainer = ({bids=[], transactions=[]}) => {
 		firstRow: 0
     });
 
-    // useEffect(() => {if (bids && bids.length > 0) setPage({ ...page, totalRows: bids.length})}, [bids])
-    useEffect(() => {if (transactions[0] && transactions[0].length > 0) setPage({ ...page, totalRows: transactions[0].length})}, [transactions])
+    useEffect(() => {if (transactions && transactions.length > 0) setPage({ 
+        ...page, 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        totalRows: transactions.filter(el => el.parsedEvents).length})}, [transactions])
 
-    // console.log("BIDS: ", bids)
-    console.log("TRANSACTIONS IN TABLE: ", transactions[0])
-    // bids.length > 0 && console.log("PAGE: ", page)
+    console.log("TRANSACTIONS IN TABLE: ", transactions)
+    console.log("USER MAP IN TABLE: ", userMap)
 
 	const nextPage = () => {
 		setPage({ ...page, firstRow: parseInt(page.firstRow) + parseInt(page.rowsPerPage)});
@@ -40,15 +41,27 @@ const TableContainer = ({bids=[], transactions=[]}) => {
 		setPage({ ...page, firstRow: (page.totalRows - /*page.totalRows % */page.rowsPerPage) })
     };
     
-    let bidsToDisplay = bids.slice(parseInt(page.firstRow), (parseInt(page.firstRow) + parseInt(page.rowsPerPage)));
-    let transactionsToDisplay = transactions[0] && transactions[0].slice(parseInt(page.firstRow), (parseInt(page.firstRow) + parseInt(page.rowsPerPage)));
+    let transactionsToDisplay = transactions && transactions.slice(parseInt(page.firstRow), (parseInt(page.firstRow) + parseInt(page.rowsPerPage)));
 
-    const rowsToDisplay = /*bidsToDisplay && bidsToDisplay */transactions[0] && transactions[0].length > 0 && transactionsToDisplay && transactionsToDisplay.map(el => {
-        return transactions[0] && transactions[0].length > 0 && (
+    const rowsToDisplay = transactions && transactions.length > 0 && transactionsToDisplay && transactionsToDisplay.map(el => {
+        // el.parsedEvents && console.log("THIS IS THE EL: ", el.parsedEvents[0].inputValues)
+        return transactions && transactions.length > 0 && (
             <Table.Row key={Math.random()}>
-                <Table.Cell className="account">{el.payerID}</Table.Cell>
-                <Table.Cell className="price" style={{textAlign: "center"}}>{el.amount}</Table.Cell>
-                <Table.Cell className="price" style={{textAlign: "right"}}>{el.consensusTime.slice(11, 19)}</Table.Cell>
+                {el.parsedEvents && <Table.Cell className="price" style={{textAlign: "left"}}>
+                    {(el.parsedEvents && userMap && el.parsedEvents[0]) ? userMap[el.parsedEvents[0].inputValues[0]] : ''}
+                </Table.Cell>}
+                
+                {el.parsedEvents && <Table.Cell className="account" style={{textAlign: "center"}}>
+                    {/* <a href={`https://testnet.dragonglass.me/hedera/transactions/${el.transactionID}`} target="_blank"> */}
+                        {el.parsedEvents ? el.parsedEvents[0].inputValues[0] : el.calledBy}
+                    {/* </a> */}
+                </Table.Cell>}
+                
+                {el.parsedEvents && <Table.Cell className="price" style={{textAlign: "center"}}>
+                    {el.parsedEvents ? el.parsedEvents[0].inputValues[1] : "-"}
+                </Table.Cell>}
+                
+                {el.parsedEvents && <Table.Cell className="price" style={{textAlign: "right"}}>{el.consensusTime.slice(11, 19)}</Table.Cell>}
             </Table.Row>
         )
     });
@@ -61,9 +74,11 @@ const TableContainer = ({bids=[], transactions=[]}) => {
                 <Table basic='very'>
                     <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Bid Account</Table.HeaderCell>
+                        <Table.HeaderCell>Name</Table.HeaderCell>
+                        <Table.HeaderCell style={{textAlign: "center"}}>Bid Account</Table.HeaderCell>
                         <Table.HeaderCell style={{textAlign: "center"}}>Bid Amount</Table.HeaderCell>
-                        <Table.HeaderCell style={{textAlign: "right"}}>Bid Time</Table.HeaderCell>
+                        <Table.HeaderCell style={{textAlign: "right"}}>Time</Table.HeaderCell>
+                        {/* <Table.HeaderCell style={{textAlign: "center"}}>Success/Failure</Table.HeaderCell> */}
                     </Table.Row>
                     </Table.Header>
 
@@ -71,7 +86,7 @@ const TableContainer = ({bids=[], transactions=[]}) => {
                         {rowsToDisplay}
                     </Table.Body>
                 </Table>
-                {bids.length > 0 && <BidPaginator page={page} nextPage={nextPage} prevPage={prevPage} toBeginning={toBeginning} toEnd={toEnd} />}
+                {transactions.length > 0 && <BidPaginator page={page} nextPage={nextPage} prevPage={prevPage} toBeginning={toBeginning} toEnd={toEnd} />}
             </div>
         </div>
     )

@@ -35,7 +35,7 @@
 }
 
 .span2 {
-  font-size: 250%;
+  font-size: 230%;
   position: relative;
   top: 10px;
 }
@@ -45,8 +45,41 @@
   font-family: "SFProDisplay-Black", Helvetica, Arial, serif;
 }
 
+@media screen and (max-width: 1330px) {
+  .header .span2 {
+    font-size: 220%;
+  }
+  .spacer {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  .header .span2 {
+    font-size: 180%;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .header .span2 {
+    font-size: 160%;
+  }
+  .spacer {
+    width: 18%;
+  }
+}
+
+@media screen and (max-width: 1040px) {
+  .header .span2 {
+    font-size: 130%;
+  }
+  .spacer {
+    width: 12%;
+  }
+}
+
 .spacer {
-  width: 65%
+  width: 30%
 }
 
 .round-image {
@@ -70,6 +103,25 @@
   top: 3px;
 }
 
+.reset {
+  font-size: 8px;
+  color: white;
+  font-family: "SFProText-Bold", Helvetica, Arial, serif;
+  width: 37px;
+  height: 37px;
+  border: 2px solid #E6E6E6;
+  border-radius: 50%;
+  background-color: rgba(121, 178, 55, 1.0);
+  margin-left: 20px;
+  cursor: pointer;
+  padding-top: 2.9px;
+}
+
+.reset:hover {
+  background-color: green;
+  transition: all 0.2s ease-in-out;
+}
+
 /* BID PANEL */
 
 .bid-panel {
@@ -82,6 +134,7 @@
   box-shadow: 10px 10px 5px #E6E6E6;
   display: flex;
   align-items: center;
+  padding-left: 7%;
 }
 
 .headphones {
@@ -104,6 +157,40 @@
   font-size: 16.0px;
 }
 
+.reset-spacer {
+  display: inline;
+}
+
+/* @media screen and (max-width: 1400px) {
+  .reset {
+    margin-left: 250px;
+  }
+}
+
+@media screen and (max-width: 1230px) {
+  .reset {
+    margin-left: 200px;
+  }
+}
+
+@media screen and (max-width: 1170px) {
+  .reset {
+    margin-left: 150px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .reset {
+    margin-left: 90px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .reset {
+    margin-left: 40px;
+  }
+} */
+
 .bid-text {
   margin-top: 20px;
 }
@@ -119,6 +206,10 @@
   color: rgba(121, 178, 55, 1.0);
   font-family: "SFProText-Bold", Helvetica, Arial, serif;
   margin-left: 10px;
+}
+
+.tiny {
+  font-family: "SFProText-MediumItalic", Helvetica, Arial, serif;
 }
 
 .usd {
@@ -154,6 +245,14 @@
   cursor: pointer;
 }
 
+.bid-button:disabled {
+  cursor: default;
+}
+
+.bid-button:disabled:hover {
+  background-color: rgba(121, 178, 55, 1.0);
+}
+
 .bid-button:hover {
   background-color: green;
   transition: all 0.2s ease-in-out;
@@ -167,7 +266,8 @@
 }
 
 .bid-input:focus,
-.bid-button:focus {
+.bid-button:focus,
+.reset:focus {
   outline: 0;
 }
 
