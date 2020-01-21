@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
+import { getBid } from '../reducers';
 
-const BidContainer = ({ transactions=[], winner='', placeBid }) => {
+const BidContainer = ({ transactions=[], winner='', placeBid, highestAmount, bid }) => {
 
     const [inputValue, setInputValue] = useState('');
 
@@ -30,7 +31,7 @@ const BidContainer = ({ transactions=[], winner='', placeBid }) => {
                 {!winner || winner.length === 0 ?
                 <div className="bid-text">
                     <span className="current-bid">Current Bid: </span>
-                    <span className="bid-price"><span className="tiny">t</span>ℏ {transactions && transactions.length > 0 && transactions[0].parsedEvents[0].inputValues[1]} </span>
+                    <span className="bid-price"><span className="tiny">t</span>ℏ {bid} </span>
                     {/* <span className="usd">(usd)</span> */}
                 </div> :
                 <div className="current-bid" style={{marginTop: "20px"}}>Winner: {winner}</div>
@@ -45,5 +46,8 @@ const BidContainer = ({ transactions=[], winner='', placeBid }) => {
         </div>
     )
 }
+const mapStateToProps = (state) => ({
+    bid: getBid(state)
+});
 
-export default connect(null, actions)(BidContainer);
+export default connect(mapStateToProps, actions)(BidContainer);

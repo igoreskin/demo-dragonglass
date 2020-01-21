@@ -16,10 +16,7 @@ const TableContainer = ({ transactions=[], userMap }) => {
     useEffect(() => {if (transactions && transactions.length > 0) setPage({ 
         ...page, 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        totalRows: transactions.filter(el => el.parsedEvents).length})}, [transactions])
-
-    console.log("TRANSACTIONS IN TABLE: ", transactions)
-    console.log("USER MAP IN TABLE: ", userMap)
+        totalRows: transactions.filter(el => el).length})}, [transactions])
 
 	const nextPage = () => {
 		setPage({ ...page, firstRow: parseInt(page.firstRow) + parseInt(page.rowsPerPage)});
@@ -44,24 +41,23 @@ const TableContainer = ({ transactions=[], userMap }) => {
     let transactionsToDisplay = transactions && transactions.slice(parseInt(page.firstRow), (parseInt(page.firstRow) + parseInt(page.rowsPerPage)));
 
     const rowsToDisplay = transactions && transactions.length > 0 && transactionsToDisplay && transactionsToDisplay.map(el => {
-        // el.parsedEvents && console.log("THIS IS THE EL: ", el.parsedEvents[0].inputValues)
-        return transactions && transactions.length > 0 && (
+        return el && (
             <Table.Row key={Math.random()}>
-                {el.parsedEvents && <Table.Cell className="price" style={{textAlign: "left"}}>
-                    {(el.parsedEvents && userMap && el.parsedEvents[0]) ? userMap[el.parsedEvents[0].inputValues[0]] : ''}
+                {el && userMap && <Table.Cell className="price" style={{textAlign: "left"}}>
+                    {userMap[el["account"]]}
                 </Table.Cell>}
                 
-                {el.parsedEvents && <Table.Cell className="account" style={{textAlign: "center"}}>
+                {el && <Table.Cell className="account" style={{textAlign: "center"}}>
                     {/* <a href={`https://testnet.dragonglass.me/hedera/transactions/${el.transactionID}`} target="_blank"> */}
-                        {el.parsedEvents ? el.parsedEvents[0].inputValues[0] : el.calledBy}
+                        {el.account}
                     {/* </a> */}
                 </Table.Cell>}
                 
-                {el.parsedEvents && <Table.Cell className="price" style={{textAlign: "center"}}>
-                    {el.parsedEvents ? el.parsedEvents[0].inputValues[1] : "-"}
+                {el && <Table.Cell className="price" style={{textAlign: "center"}}>
+                    {el.amount}
                 </Table.Cell>}
                 
-                {el.parsedEvents && <Table.Cell className="price" style={{textAlign: "right"}}>{el.consensusTime.slice(11, 19)}</Table.Cell>}
+                {el && <Table.Cell className="price" style={{textAlign: "right"}}>{el.consensusTime.slice(11, 19)}</Table.Cell>}
             </Table.Row>
         )
     });

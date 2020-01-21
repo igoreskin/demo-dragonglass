@@ -2,10 +2,9 @@ import { combineReducers } from 'redux';
 import bids, * as fromBids from './bids';
 import transactions, * as fromTransactions from './transactions';
 import users, * as fromUsers from './users';
-import time, * as fromTime from './time';
-
+import bid, * as fromBid from './bid';
 const auctioneer = combineReducers({
-	bids, transactions, users, time
+	bids, transactions, users, bid
 });
 
 export default auctioneer;
@@ -13,4 +12,4 @@ export default auctioneer;
 export const getBids = (state) => fromBids.getBids(state.bids);
 export const getTransactions = (state) => fromTransactions.getTransactions(state.transactions);
 export const getUsers = (state) => fromUsers.getUsers(state.users);
-export const getTime = (state) => fromTime.getTime(state.time);
+export const getBid = (state) => fromBid.getBid(state.bid);

@@ -3,12 +3,13 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import '../css/desktopHd.css'
 
-const Header = ({ resetAuction, setTime }) => {
+const Header = ({ resetAuction, resetTable, setTime }) => {
 
     const handleReset = () => {
         console.log("RESET CLICKED");
         resetAuction();
-        setTime();
+        resetTable();
+        // setTime();
     }
 
     return (

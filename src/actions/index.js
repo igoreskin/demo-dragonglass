@@ -37,13 +37,12 @@ export const fetchTransactions = (contractId, apiKey) => (dispatch, getState) =>
 		}
 	);
 
-const contractId = '0.0.144616'  //'0.0.144309'; //'0.0.144068'
-// const consensusStartInEpoch='1579576576000';
+const contractId = '0.0.144621';
+const consensusStartInEpoch='1579576576000';
 
 
-export const fetchTransactionsNew = (apiKey, consensusStartInEpoch) => (dispatch, getState) => { 
-	console.log("TIME IN ACTIONS: ", consensusStartInEpoch)
-	return fetch(`https://api-testnet.dragonglass.me/hedera/api/contracts/${contractId}/calls?contractMethodName=1998aeef&consensusStartInEpoch=1579576576000&status=SUCCESS&from=0&size=5&sortBy=desc`, {
+export const fetchEvents = (apiKey) => (dispatch, getState) => {
+	return fetch(`https://api-testnet.dragonglass.me/hedera/api/contracts/${contractId}/calls?contractMethodName=1998aeef&consensusStartInEpoch=${consensusStartInEpoch}&status=SUCCESS&from=0&size=100&sortBy=desc`, {
 	method: 'GET',
 	headers: {
 		'x-api-key': apiKey,
@@ -51,9 +50,22 @@ export const fetchTransactionsNew = (apiKey, consensusStartInEpoch) => (dispatch
 	})
 	.then(response => response.json())
 	.then(json => {
-		console.log("DATA IN ACTIONS: ", json.data);
+		const events = [];
+		if(json.data){
+      json.data.forEach(function(item){
+      const event = {};
+      event["consensusTime"] = item.consensusTime;
+      if(item.parsedEvents){
+        event["account"] = item.parsedEvents[0].inputValues[0];
+        event["amount"] = item.parsedEvents[0].inputValues[1];
+        events.push(event);
+        }
+      });
+		}
+		dispatch({type: "HIGHESTBID",
+    		payload: events && events[0] ? events[0].amount : 0});
 		return (dispatch({type: types.FETCH_TRANSACTIONS_SUCCESS,
-		payload: json.data}))
+		payload: events}))
 	},
 	(error) => {
 		dispatch({
@@ -84,7 +96,6 @@ export const fetchUsers = () => (dispatch, getState) => {
 	return fetch(`http://localhost:8081/bidders`)
 	.then(response => response.json())
 	.then(json => {
-		console.log("USERS IN ACTIONS: ", json);
 		return (dispatch({
 		type: types.FETCH_USERS_SUCCESS,
 		payload: json}))
@@ -99,10 +110,16 @@ export const fetchUsers = () => (dispatch, getState) => {
 }
 
 export const resetAuction = () => (dispatch, getState) => { 
-	return fetch(`http://localhost:8081/resetAuction`)
+	return fetch(`http://localhost:8081/resetAuction/${contractId}`,
+	{method: 'POST'},)
 	.then(response => response.json())
 	.then(json => {
 		console.log("ACTION RESET: ", json);
+		// dispatch({type: types.HIGHESTBID,
+    	// 	payload: 0});
+		// dispatch({type: types.FETCH_TRANSACTIONS_SUCCESS,
+		// payload: []});
+		
 		return (dispatch({
 		type: types.RESET_AUCTION_SUCCESS,
 		payload: Date.now()}))
@@ -115,3 +132,16 @@ export const resetAuction = () => (dispatch, getState) => {
 	}
 	)
 }
+
+export const resetTable = () => async dispatch => {
+	try {
+		dispatch({type: types.HIGHESTBID,
+    		payload: 0});
+		dispatch({type: types.FETCH_TRANSACTIONS_SUCCESS,
+		payload: []});
+		
+	} catch (error) {
+		console.log(error.message)
+	}
+		
+	}
